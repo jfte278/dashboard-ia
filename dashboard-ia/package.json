@@ -1,0 +1,15 @@
+{
+  "name": "dashboard-ia",
+  "version": "1.0.0",
+  "description": "Dashboard empresarial inteligente con agentes de análisis",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "cli": "node cli.js",
+    "seed": "node seed.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Empresarial Inteligente - IA</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen p-6">
+  <div class="max-w-7xl mx-auto space-y-6">
+    
+    <!-- Encabezado -->
+    <header class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-slate-800 pb-4 gap-4">
+      <div>
+        <h1 class="text-2xl font-bold tracking-tight text-white flex items-center gap-2">
+          📊 Dashboard Gerencial IA <span class="text-xs bg-indigo-600 px-2.5 py-0.5 rounded-full text-white font-medium">Activo</span>
+        </h1>
+        <p class="text-sm text-slate-400">Sistema inteligente de análisis de datos y apoyo a la toma de decisiones</p>
+      </div>
+      <div id="status-badge" class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-950 text-emerald-400 border border-emerald-800">
+        Sistema Operativo
+      </div>
+    </header>
+
+    <!-- KPIs Principales -->
+    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <article class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
+        <p class="text-xs font-semibold uppercase tracking-wider text-slate-400">Ingresos Totales</p>
+        <h2 id="ingresos" class="text-2xl font-extrabold text-white mt-1">$0</h2>
+      </article>
+      <article class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
+        <p class="text-xs font-semibold uppercase tracking-wider text-slate-400">Margen de Utilidad</p>
+        <h2 id="margen" class="text-2xl font-extrabold text-white mt-1">0%</h2>
+      </article>
+      <article class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
+        <p class="text-xs font-semibold uppercase tracking-wider text-slate-400">Unidades Vendidas</p>
+        <h2 id="ventas" class="text-2xl font-extrabold text-white mt-1">0</h2>
+      </article>
+      <article class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
+        <p class="text-xs font-semibold uppercase tracking-wider text-slate-400">Utilidad Neta</p>
+        <h2 id="utilidad" class="text-2xl font-extrabold text-emerald-400 mt-1">$0</h2>
+        <p class="text-xs text-slate-400 mt-1">Costos: <span id="costos" class="text-slate-200 font-medium">$0</span></p>
+      </article>
+    </section>
+
+    <!-- Fila central: Formulario y Agentes IA -->
+    <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      
+      <!-- Formulario para el Profesor -->
+      <article class="bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-lg">
+        <h2 class="text-base font-bold text-white mb-3">📝 Registrar Datos Empresariales</h2>
+        <form id="formulario" class="space-y-3">
+          <div>
+            <label class="block text-[11px] font-medium text-slate-400 mb-1">Nombre de la Empresa</label>
+            <input id="empresa" name="empresa" required class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white" placeholder="Ej. Empresa ABC">
+          </div>
+          <div>
+            <label class="block text-[11px] font-medium text-slate-400 mb-1">Producto o Servicio</label>
+            <input id="producto" name="producto" required class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white" placeholder="Ej. Software Cloud">
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+              <label class="block text-[11px] font-medium text-slate-400 mb-1">Ventas (Unidades)</label>
+              <input id="ventasInput" name="ventas" type="number" min="0" required value="20" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white">
+            </div>
+            <div>
+              <label class="block text-[11px] font-medium text-slate-400 mb-1">Empleados</label>
+              <input id="empleadosInput" name="empleados" type="number" min="0" required value="5" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white">
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+              <label class="block text-[11px] font-medium text-slate-400 mb-1">Ingresos (COP)</label>
+              <input id="ingresosInput" name="ingresos" type="number" min="0" required value="10000000" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white">
+            </div>
+            <div>
+              <label class="block text-[11px] font-medium text-slate-400 mb-1">Costos (COP)</label>
+              <input id="costosInput" name="costos" type="number" min="0" required value="6000000" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white">
+            </div>
+          </div>
+          <div>
+            <label class="block text-[11px] font-medium text-slate-400 mb-1">Fecha</label>
+            <input id="fecha" name="fecha" type="date" required class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white">
+          </div>
+          <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-2 rounded-lg text-xs transition shadow-md">Guardar y actualizar</button>
+          <p id="mensaje" class="text-xs text-center mt-1"></p>
+        </form>
+      </article>
+
+      <!-- Panel de Agentes de IA -->
+      <article class="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-lg flex flex-col justify-between">
+        <div>
+          <h2 class="text-base font-bold text-indigo-400 mb-3">🤖 Diagnóstico de Agentes de Inteligencia Artificial</h2>
+          <div id="agentes" class="space-y-3">
+            <p class="text-xs text-slate-400">Cargando análisis de IA...</p>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- Gráficas interactivas -->
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <article class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
+        <h3 class="text-sm font-bold text-white mb-3">📈 Ingresos vs Costos</h3>
+        <div class="h-56 relative"><canvas id="graficaFinanzas"></canvas></div>
+      </article>
+      <article class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
+        <h3 class="text-sm font-bold text-white mb-3">🏷️ Ventas por Producto</h3>
+        <div class="h-56 relative"><canvas id="graficaProductos"></canvas></div>
+      </article>
+      <article class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
+        <h3 class="text-sm font-bold text-white mb-3">📅 Tendencia de Ingresos</h3>
+        <div class="h-56 relative"><canvas id="graficaFechas"></canvas></div>
+      </article>
+    </section>
+
+    <!-- Historial de Registros -->
+    <section class="bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-lg">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-base font-bold text-white">📋 Historial de Registros Empresariales</h2>
+        <div class="flex gap-2">
+          <button id="actualizar" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-xs rounded-lg text-slate-200">Refrescar</button>
+          <button id="limpiar" class="px-3 py-1.5 bg-rose-950 hover:bg-rose-900 text-xs rounded-lg text-rose-300 border border-rose-800">Eliminar todo</button>
+        </div>
+      </div>
+      <div class="overflow-x-auto max-h-56">
+        <table class="w-full text-left border-collapse text-xs">
+          <thead>
+            <tr class="border-b border-slate-800 text-slate-400">
+              <th class="p-3">Fecha</th>
+              <th class="p-3">Empresa</th>
+              <th class="p-3">Producto</th>
+              <th class="p-3">Ventas</th>
+              <th class="p-3">Ingresos</th>
+              <th class="p-3">Costos</th>
+            </tr>
+          </thead>
+          <tbody id="tablaRegistros" class="divide-y divide-slate-800/60">
+            <tr><td colspan="6" class="p-4 text-center text-slate-500">Cargando...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    const dinero = (n) => new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP", maximumFractionDigits: 0 }).format(n);
+    const numero = (n) => new Intl.NumberFormat("es-CO").format(n);
+    let gFinanzas, gProductos, gFechas;
+
+    function crearGrafica(id, tipo, etiquetas, datasets, anterior) {
+      if (anterior) anterior.destroy();
+      return new Chart(document.getElementById(id).getContext('2d'), {
+        type: tipo,
+        data: { labels: etiquetas, datasets: datasets },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { labels: { color: "#cbd5e1", font: { size: 10 } } } },
+          scales: tipo === "doughnut" ? {} : {
+            x: { ticks: { color: "#94a3b8", font: { size: 9 } }, grid: { color: "#1e293b" } },
+            y: { beginAtZero: true, ticks: { color: "#94a3b8", font: { size: 9 } }, grid: { color: "#1e293b" } }
+          }
+        }
+      });
+    }
+
+    async function cargarDashboard() {
+      const res = await fetch("/api/dashboard");
+      const data = await res.json();
+      const k = data.indicadores;
+
+      document.getElementById("ingresos").textContent = dinero(k.ingresos);
+      document.getElementById("costos").textContent = dinero(k.costos);
+      document.getElementById("utilidad").textContent = dinero(k.utilidad);
+      document.getElementById("ventas").textContent = numero(k.ventas);
+      document.getElementById("margen").textContent = k.margen + "%";
+
+      // Renderizar Agentes IA
+      const ag = data.agentes;
+      const agContainer = document.getElementById("agentes");
+      agContainer.innerHTML = `
+        <div class="bg-slate-950 p-3 rounded-lg border border-slate-800 text-xs space-y-1">
+          <p class="font-semibold text-indigo-300">📊 ${ag.ventas.agente}:</p>
+          <p class="text-slate-300">${ag.ventas.resultado}</p>
+        </div>
+        <div class="bg-slate-950 p-3 rounded-lg border border-slate-800 text-xs space-y-1">
+          <p class="font-semibold text-emerald-300">💰 ${ag.rentabilidad.agente}:</p>
+          <p class="text-slate-300">${ag.rentabilidad.resultado}</p>
+        </div>
+        <div class="bg-slate-950 p-3 rounded-lg border border-slate-800 text-xs space-y-1">
+          <p class="font-semibold text-amber-300">💡 ${ag.recomendaciones.agente}:</p>
+          <ul class="list-disc list-inside text-slate-300 space-y-0.5">
+            ${ag.recomendaciones.recomendaciones.map(r => `<li>${r}</li>`).join('')}
+          </ul>
+        </div>
+      `;
+
+      // Gráficas
+      gFinanzas = crearGrafica("graficaFinanzas", "bar", ["Ingresos", "Costos", "Utilidad"], [{
+        label: "COP", data: [k.ingresos, k.costos, k.utilidad], backgroundColor: ["#6366f1", "#f43f5e", "#10b981"]
+      }], gFinanzas);
+
+      const prods = data.productos;
+      gProductos = crearGrafica("graficaProductos", "doughnut", Object.keys(prods), [{
+        data: Object.values(prods), backgroundColor: ["#6366f1", "#10b981", "#f59e0b", "#ec4899", "#3b82f6"]
+      }], gProductos);
+
+      const porFecha = {};
+      data.registros.forEach(r => { porFecha[r.fecha] = (porFecha[r.fecha] || 0) + r.ingresos; });
+      const fechas = Object.keys(porFecha).sort();
+      gFechas = crearGrafica("graficaFechas", "line", fechas, [{
+        label: "Ingresos (COP)", data: fechas.map(f => porFecha[f]), borderColor: "#6366f1", tension: 0.3, fill: true, backgroundColor: "rgba(99,102,241,0.1)"
+      }], gFechas);
+
+      // Tabla Historial
+      const tbody = document.getElementById("tablaRegistros");
+      tbody.innerHTML = data.registros.length ? "" : `<tr><td colspan="6" class="p-4 text-center text-slate-500">Sin registros.</td></tr>`;
+      [...data.registros].reverse().forEach(r => {
+        const tr = document.createElement("tr");
+        tr.className = "hover:bg-slate-800/40";
+        [r.fecha, r.empresa, r.producto, numero(r.ventas), dinero(r.ingresos), dinero(r.costos)].forEach(val => {
+          const td = document.createElement("td");
+          td.className = "p-3 text-slate-300";
+          td.textContent = val;
+          tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
+      });
+    }
+
+    document.getElementById("formulario").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const datos = Object.fromEntries(new FormData(e.target).entries());
+      ["ventas", "ingresos", "costos", "empleados"].forEach(k => datos[k] = Number(datos[k]));
+
+      const res = await fetch("/api/registros", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(datos)
+      });
+      if (res.ok) {
+        document.getElementById("mensaje").textContent = "¡Guardado con éxito!";
+        document.getElementById("mensaje").className = "text-xs text-center text-emerald-400 mt-1";
+        await cargarDashboard();
+      }
+    });
+
+    document.getElementById("actualizar").addEventListener("click", cargarDashboard);
+    document.getElementById("limpiar").addEventListener("click", async () => {
+      if (confirm("¿Borrar todos los registros?")) {
+        await fetch("/api/registros", { method: "DELETE" });
+        await cargarDashboard();
+      }
+    });
+
+    document.getElementById("fecha").value = new Date().toISOString().slice(0, 10);
+    cargarDashboard();
+  </script>
+</body>
+</html>
